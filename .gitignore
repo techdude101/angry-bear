@@ -51,3 +51,4 @@ Module.symvers
 Mkfile.old
 dkms.conf
 History
+/1-Hardware/1-Schematics/V1I1/1-Project/__Previews/*.SchDocPreview
