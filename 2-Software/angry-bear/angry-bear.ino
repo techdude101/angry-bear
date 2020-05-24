@@ -1,13 +1,12 @@
 /*
  * Project: Angry Bear
  * 
- * Description: Flash an LED mounted inbetween a teddy bear's eyes when sound is detected
+ * Description: Flash an LED mounted in-between a teddy bear's eyes when sound is detected
+ * AT Tiny85  : 1MHz internal clock
  */
 
-//#define DEBUG
-#define LED 12
+#define LED 0
 #define MICROPHONE A0
-#define BAUD_RATE 115200
 #define AVG_SAMPLES 20          // Average samples to filter out high frequency noise
 #define SOUND_THRESHOLD 8       // Values below 8 cause oscillation
 
@@ -26,12 +25,6 @@ void ledFlash();
 
 /************************************************/
 void setup() {
-  Serial.begin(BAUD_RATE);
-  Serial.println("Startup...");
-  #ifdef DEBUG
-  Serial.println("Debugging enabled");
-  #endif
-
   ledPinSetup();
 
   // Flash on startup to check hardware
@@ -50,12 +43,6 @@ void loop() {
   if (sum > AVG_SAMPLES) {
     average = sum / AVG_SAMPLES;
   }
-  
-  #ifdef DEBUG
-  if (sum != 0) {
-    Serial.println(average);
-  }
-  #endif
 
   if ((average - prev_average) > SOUND_THRESHOLD) {
     if (!led_on) {
